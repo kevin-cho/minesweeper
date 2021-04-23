@@ -15,7 +15,7 @@ const StyledCell = styled.div`
   color: white;
   font-weight: bold;
 
-  transition: all 0.1s ease;
+  transition: all 0.3s ease;
   background-color: #00a6cb;
   :hover {
     background-color: #1f7eac;

@@ -54,7 +54,6 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
             !(i === row && j === col) &&
             !boardData[i][j].isClicked
           ) {
-            console.log('reveal', i, j)
             onClick(i, j);
           }
         }
