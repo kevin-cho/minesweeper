@@ -5,7 +5,6 @@ import Cell from '../Cell';
 
 const Container = styled.div`
   display: inline-block;
-  margin-top: 10%;
 `;
 
 const Row = styled.div`

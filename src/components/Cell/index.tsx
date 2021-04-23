@@ -12,10 +12,9 @@ const StyledCell = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
   font-weight: bold;
 
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
   background-color: #00a6cb;
   :hover {
     background-color: #1f7eac;
