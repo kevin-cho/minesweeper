@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import generateBoard from '../../utils';
 import Cell from '../Cell';
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: inline-block;
+  margin-top: 10%;
+`;
 
 const Row = styled.div`
   display: flex;
@@ -17,14 +20,18 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
     setData(board);
   }, [rows, cols, mineCount]);
 
+  const onClick = (row: number, col: number) => {
+
+  };
+
   if (!data) return null;
 
   return (
     <Container>
-      {data.map(row => (
+      {data.map((rowData, rowIdx) => (
         <Row>
-          {row.map(cellData => (
-            <Cell {...cellData} />
+          {rowData.map((cellData, colIdx) => (
+            <Cell {...cellData} onClick={() => onClick(rowIdx, colIdx)} />
           ))}
         </Row>
       ))}

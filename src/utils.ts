@@ -33,7 +33,7 @@ const placeMines = ({
   }
 };
 
-const calculateNeighbours = (
+const calculateBoardNeighbours = (
   { board, rows, cols }:
   { board: Board } & Grid
 ): void => {
@@ -75,7 +75,7 @@ const countNeighbours = (
 const generateBoard = ({ rows, cols, mineCount }: BoardMeta): Board => {
   const board = initializeBoard({ rows, cols });
   placeMines({ board, mineCount });
-  calculateNeighbours({ board, rows, cols })
+  calculateBoardNeighbours({ board, rows, cols })
 
   return board;
 };
