@@ -13,6 +13,7 @@ const StyledCell = styled.div`
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  color: #fff;
 
   transition: all 0.25s ease;
   background-color: #00a6cb;

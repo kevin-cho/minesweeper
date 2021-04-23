@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export const useTheme = (): [string, () => void, boolean] => {
-  const [theme, setTheme] = useState('light');
+export type ThemeMode = 'light' | 'dark';
+
+export const useTheme = (): [ThemeMode, () => void, boolean] => {
+  const [theme, setTheme] = useState<ThemeMode>('light');
   const [componentMounted, setComponentMounted] = useState(false);
 
-  const setMode = (mode: string) => {
+  const setMode = (mode: ThemeMode) => {
     window.localStorage.setItem('theme', mode)
     setTheme(mode)
   };
@@ -14,7 +16,7 @@ export const useTheme = (): [string, () => void, boolean] => {
   };
 
   useEffect(() => {
-    const localTheme = window.localStorage.getItem('theme');
+    const localTheme = window.localStorage.getItem('theme') as ThemeMode | null;
     if (localTheme) {
       setTheme(localTheme);
     } else {
