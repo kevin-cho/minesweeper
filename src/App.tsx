@@ -6,8 +6,16 @@ import { useTheme } from './hooks/useTheme';
 
 const ToggleButton = styled.button`
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 1px;
+  right: 1px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  > * {
+    color: ${({ theme }) => theme.text};
+    font-size: 3rem;
+  }
 `;
 
 function App() {
@@ -21,7 +29,11 @@ function App() {
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <>
         <GlobalStyles />
-        <ToggleButton onClick={toggleTheme}>hello</ToggleButton>
+        <ToggleButton onClick={toggleTheme}>
+          <span className={theme === 'light' ? 'material-icons-outlined' : 'material-icons'}>
+            dark_mode
+          </span>
+        </ToggleButton>
         <Board rows={10} cols={10} mineCount={10} />
       </>
     </ThemeProvider>
