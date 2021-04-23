@@ -36,6 +36,7 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
     if (!boardData) return;
 
     const cell = boardData[row][col];
+    if (cell.isFlagged) return;
     cell.isClicked = true;
 
     if (cell.hasMine) {
@@ -63,6 +64,12 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
     setBoardData([...boardData]);
   };
 
+  const onRightClick = (row: number, col: number) => {
+    if (!boardData) return;
+    boardData[row][col].isFlagged = !boardData[row][col].isFlagged;
+    setBoardData([...boardData]);
+  }
+
   if (!boardData) return null;
 
   return (
@@ -70,7 +77,14 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
       {boardData.map((rowData, rowIdx) => (
         <Row>
           {rowData.map((cellData, colIdx) => (
-            <Cell {...cellData} onClick={() => onClick(rowIdx, colIdx)} />
+            <Cell
+              {...cellData}
+              onClick={() => onClick(rowIdx, colIdx)}
+              onContextMenu={e => {
+                e.preventDefault();
+                onRightClick(rowIdx, colIdx);
+              }}
+            />
           ))}
         </Row>
       ))}

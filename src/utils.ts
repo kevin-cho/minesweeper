@@ -7,7 +7,8 @@ const initializeBoard = ({ rows, cols }: Grid): Board => {
       board[row][col] = {
         hasMine: false,
         surroundingMines: 0,
-        isClicked: false
+        isClicked: false,
+        isFlagged: false,
       }
     }
   }

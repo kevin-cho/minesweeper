@@ -13,6 +13,7 @@ type Cell = {
   hasMine: boolean;
   surroundingMines: number;
   isClicked: boolean;
+  isFlagged: boolean;
 }
 
 type CellMeta = {
