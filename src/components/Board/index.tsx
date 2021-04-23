@@ -13,22 +13,62 @@ const Row = styled.div`
 `;
 
 const Board = ({ mineCount, rows, cols }: BoardMeta) => {
-  const [data, setData] = useState<Board | null>(null);
+  const [boardData, setBoardData] = useState<Board | null>(null);
 
   useEffect(() => {
     const board = generateBoard({ mineCount, rows, cols });
-    setData(board);
+    setBoardData(board);
   }, [rows, cols, mineCount]);
 
-  const onClick = (row: number, col: number) => {
+  const revealBoard = () => {
+    if (!boardData) return;
 
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        boardData[row][col].isClicked = true;
+      }
+    }
+
+    setBoardData([...boardData]);
+  }
+
+  const onClick = (row: number, col: number) => {
+    if (!boardData) return;
+
+    const cell = boardData[row][col];
+    cell.isClicked = true;
+
+    if (cell.hasMine) {
+      revealBoard();
+    }
+
+    // Rule: When a cell has 0 surrounding mines, reveal neighbours and repeat
+    if (cell.surroundingMines === 0) {
+      for (let i = row - 1; i <= row + 1; i++) {
+        for (let j = col - 1; j <= col + 1; j++) {
+          if (
+            i >= 0 &&
+            i < rows &&
+            j >= 0 &&
+            j < cols &&
+            !(i === row && j === col) &&
+            !boardData[i][j].isClicked
+          ) {
+            console.log('reveal', i, j)
+            onClick(i, j);
+          }
+        }
+      }
+    }
+
+    setBoardData([...boardData]);
   };
 
-  if (!data) return null;
+  if (!boardData) return null;
 
   return (
     <Container>
-      {data.map((rowData, rowIdx) => (
+      {boardData.map((rowData, rowIdx) => (
         <Row>
           {rowData.map((cellData, colIdx) => (
             <Cell {...cellData} onClick={() => onClick(rowIdx, colIdx)} />
