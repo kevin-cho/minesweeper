@@ -36,11 +36,11 @@ const StyledCell = styled.div`
 const Cell = (props: CellProps) => {
   const { hasMine, surroundingMines, isClicked, isFlagged } = props;
   const getContent = (): ReactNode => {
-    if (isFlagged) return '🚩';
     if (isClicked) {
       if (hasMine) return '\ud83d\udca3';
       if (surroundingMines) return surroundingMines;
     }
+    if (isFlagged) return '🚩';
     return null;
   };
 

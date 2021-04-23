@@ -37,11 +37,11 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
 
     const cell = boardData[row][col];
     if (cell.isFlagged) return;
-    cell.isClicked = true;
-
     if (cell.hasMine) {
       revealBoard();
+      return;
     }
+    cell.isClicked = true;
 
     // Rule: When a cell has 0 surrounding mines, reveal neighbours and repeat
     if (cell.surroundingMines === 0) {
@@ -66,7 +66,12 @@ const Board = ({ mineCount, rows, cols }: BoardMeta) => {
 
   const onRightClick = (row: number, col: number) => {
     if (!boardData) return;
-    boardData[row][col].isFlagged = !boardData[row][col].isFlagged;
+
+    const cell = boardData[row][col];
+    if (cell.isClicked) return;
+
+    cell.isFlagged = !cell.isFlagged;
+
     setBoardData([...boardData]);
   }
 
